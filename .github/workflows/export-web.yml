@@ -27,6 +27,14 @@ jobs:
         api-level: 33
         build-tools: 33.0.2
         ndk-version: 23.2.8568313
+
+    - name: Accept Android SDK Licenses
+      shell: bash
+      run: |
+        SDK_DIR="${ANDROID_SDK_ROOT:-$ANDROID_HOME}"
+        export ANDROID_SDK_ROOT="$SDK_DIR"
+        export ANDROID_HOME="$SDK_DIR"
+        yes | sdkmanager --sdk_root="$SDK_DIR" --licenses 2>&1 | grep -iE "license|package|accept|warning|error" || true
     
     - name: Download Godot
       run: |
@@ -87,8 +95,8 @@ jobs:
         version/code=${{ github.run_number }}
         version/name="1.0"
         version/get_config_from_project=true
-        package/unique_name="com.stupidgames.frogboy"
-        package/name="Frogboy"
+        package/unique_name="com.stupidgames.rootnshoot"
+        package/name="RootnShooters"
         package/signed=true
         package/app_category=2
         package/retain_data_on_uninstall=false
