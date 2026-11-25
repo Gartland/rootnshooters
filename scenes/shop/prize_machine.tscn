@@ -1,0 +1,247 @@
+[gd_scene load_steps=35 format=3 uid="uid://cpvbmwo7vkbsk"]
+
+[ext_resource type="Material" path="res://materials/m_e63946.tres" id="1_56275"]
+[ext_resource type="Material" path="res://materials/m_a82733.tres" id="2_12494"]
+[ext_resource type="Material" path="res://materials/m_ff6b78.tres" id="3_69000"]
+[ext_resource type="Material" path="res://materials/m_8b5a2b.tres" id="4_77600"]
+[ext_resource type="Material" path="res://materials/m_ffd23f.tres" id="5_97386"]
+[ext_resource type="Material" path="res://materials/m_222222.tres" id="6_53271"]
+[ext_resource type="Material" path="res://materials/m_f2c14e.tres" id="7_22994"]
+[ext_resource type="Material" path="res://materials/m_a67c3d.tres" id="8_70209"]
+[ext_resource type="Material" path="res://materials/m_fff3b0.tres" id="9_00699"]
+[ext_resource type="Material" path="res://materials/shadow.tres" id="10_95567"]
+[ext_resource type="PackedScene" path="res://scenes/shop/capsule_4.tscn" id="11_91543"]
+[ext_resource type="PackedScene" path="res://scenes/shop/capsule_5.tscn" id="12_50930"]
+[ext_resource type="PackedScene" path="res://scenes/shop/capsule_1.tscn" id="13_20132"]
+[ext_resource type="PackedScene" uid="uid://c4tp3finqavwv" path="res://scenes/shop/capsule_0.tscn" id="14_01505"]
+[ext_resource type="PackedScene" path="res://scenes/shop/capsule_2.tscn" id="15_25354"]
+[ext_resource type="PackedScene" path="res://scenes/shop/capsule_3.tscn" id="16_17743"]
+[ext_resource type="PackedScene" path="res://scenes/shop/capsule_6.tscn" id="17_11580"]
+[ext_resource type="Material" path="res://materials/glass.tres" id="18_44387"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+material = ExtResource("1_56275")
+size = Vector3(90.9137, 46.467, 80.8121)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2"]
+material = ExtResource("2_12494")
+size = Vector3(94.5234, 8.04454, 84.4677)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3"]
+material = ExtResource("3_69000")
+size = Vector3(92.0906, 6.00591, 82.0807)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4"]
+material = ExtResource("4_77600")
+size = Vector3(88.7393, 12.1008, 78.6553)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5"]
+material = ExtResource("5_97386")
+size = Vector3(22.084, 10.0382, 22.084)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6"]
+material = ExtResource("4_77600")
+size = Vector3(6.0674, 80.8987, 6.0674)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7"]
+material = ExtResource("4_77600")
+size = Vector3(6.0399, 80.532, 6.0399)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8"]
+material = ExtResource("4_77600")
+size = Vector3(6.0124, 80.1653, 6.0124)
+
+[sub_resource type="BoxMesh" id="BoxMesh_9"]
+material = ExtResource("4_77600")
+size = Vector3(6.0569, 80.7586, 6.0569)
+
+[sub_resource type="BoxMesh" id="BoxMesh_10"]
+material = ExtResource("6_53271")
+size = Vector3(8.03919, 24.1176, 32.1568)
+
+[sub_resource type="BoxMesh" id="BoxMesh_11"]
+material = ExtResource("7_22994")
+size = Vector3(4.00126, 26.0082, 26.0082)
+
+[sub_resource type="BoxMesh" id="BoxMesh_12"]
+material = ExtResource("8_70209")
+size = Vector3(8.06186, 8.06186, 8.06186)
+
+[sub_resource type="BoxMesh" id="BoxMesh_13"]
+material = ExtResource("5_97386")
+size = Vector3(5.01574, 4.01259, 20.063)
+
+[sub_resource type="BoxMesh" id="BoxMesh_14"]
+material = ExtResource("9_00699")
+size = Vector3(8.08452, 8.08452, 8.08452)
+
+[sub_resource type="BoxMesh" id="BoxMesh_15"]
+material = ExtResource("10_95567")
+size = Vector3(104.622, 0.30179, 94.5622)
+
+[sub_resource type="BoxMesh" id="BoxMesh_16"]
+material = ExtResource("18_44387")
+size = Vector3(80.1118, 78.109, 70.0978)
+
+[node name="prize_machine" type="Node3D"]
+
+[node name="Machine" type="Node3D" parent="."]
+
+[node name="Box1" type="MeshInstance3D" parent="Machine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, 0)
+mesh = SubResource("BoxMesh_1")
+
+[node name="Box2" type="MeshInstance3D" parent="Machine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+mesh = SubResource("BoxMesh_2")
+
+[node name="Box3" type="MeshInstance3D" parent="Machine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 49, 0)
+mesh = SubResource("BoxMesh_3")
+
+[node name="Box4" type="MeshInstance3D" parent="Machine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 135, 0)
+mesh = SubResource("BoxMesh_4")
+
+[node name="Box5" type="MeshInstance3D" parent="Machine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 146, 0)
+mesh = SubResource("BoxMesh_5")
+
+[node name="Box6" type="MeshInstance3D" parent="Machine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 90, -33)
+mesh = SubResource("BoxMesh_6")
+
+[node name="Box7" type="MeshInstance3D" parent="Machine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 90, 33)
+mesh = SubResource("BoxMesh_7")
+
+[node name="Box8" type="MeshInstance3D" parent="Machine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 90, -33)
+mesh = SubResource("BoxMesh_8")
+
+[node name="Box9" type="MeshInstance3D" parent="Machine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 90, 33)
+mesh = SubResource("BoxMesh_9")
+
+[node name="Box10" type="MeshInstance3D" parent="Machine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 22, 12)
+mesh = SubResource("BoxMesh_10")
+
+[node name="Box11" type="MeshInstance3D" parent="Machine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 34, -22)
+mesh = SubResource("BoxMesh_11")
+
+[node name="Box12" type="MeshInstance3D" parent="Machine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 34, -22)
+mesh = SubResource("BoxMesh_12")
+
+[node name="Crank" type="Node3D" parent="Machine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 34, -22)
+
+[node name="Arm" type="MeshInstance3D" parent="Machine/Crank"]
+mesh = SubResource("BoxMesh_13")
+
+[node name="Knob" type="MeshInstance3D" parent="Machine/Crank"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+mesh = SubResource("BoxMesh_14")
+
+[node name="Shadow" type="MeshInstance3D" parent="Machine" groups=["shadow"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("BoxMesh_15")
+
+[node name="Capsule0" parent="Machine" instance=ExtResource("11_91543")]
+transform = Transform3D(2.22134, 0, 14.8346, 0, 15, 0, -14.8346, 0, 2.22134, -28.4783, 59, -18.3362)
+
+[node name="Capsule1" parent="Machine" instance=ExtResource("11_91543")]
+transform = Transform3D(10.6841, 0, 10.5285, 0, 15, 0, -10.5285, 0, 10.6841, -28.9473, 59, 1.34988)
+
+[node name="Capsule2" parent="Machine" instance=ExtResource("12_50930")]
+transform = Transform3D(2.11894, 0, 14.8496, 0, 15, 0, -14.8496, 0, 2.11894, -27.1189, 59, 21.3458)
+
+[node name="Capsule3" parent="Machine" instance=ExtResource("13_20132")]
+transform = Transform3D(-14.0167, 0, 5.34143, 0, 15, 0, -5.34143, 0, -14.0167, -10.0723, 59, -21.3935)
+
+[node name="Capsule4" parent="Machine" instance=ExtResource("14_01505")]
+transform = Transform3D(-9.70787, 0, 11.4349, 0, 15, 0, -11.4349, 0, -9.70787, -8.31435, 59, -1.74387)
+
+[node name="Capsule5" parent="Machine" instance=ExtResource("15_25354")]
+transform = Transform3D(10.361, 0, 10.8467, 0, 15, 0, -10.8467, 0, 10.361, -7.87969, 59, 21.2943)
+
+[node name="Capsule6" parent="Machine" instance=ExtResource("16_17743")]
+transform = Transform3D(5.64598, 0, 13.8969, 0, 15, 0, -13.8969, 0, 5.64598, 9.85652, 59, -18.3156)
+
+[node name="Capsule7" parent="Machine" instance=ExtResource("13_20132")]
+transform = Transform3D(13.7693, 0, 5.95033, 0, 15, 0, -5.95033, 0, 13.7693, 10.5155, 59, 18.3898)
+
+[node name="Capsule8" parent="Machine" instance=ExtResource("12_50930")]
+transform = Transform3D(9.28793, 0, 11.7786, 0, 15, 0, -11.7786, 0, 9.28793, 26.7446, 59, -19.4934)
+
+[node name="Capsule9" parent="Machine" instance=ExtResource("16_17743")]
+transform = Transform3D(5.11624, 0, 14.1005, 0, 15, 0, -14.1005, 0, 5.11624, 27.2961, 59, 0.13641)
+
+[node name="Capsule10" parent="Machine" instance=ExtResource("15_25354")]
+transform = Transform3D(-12.6091, 0, 8.12465, 0, 15, 0, -8.12465, 0, -12.6091, 27.7279, 59, 21.7158)
+
+[node name="Capsule11" parent="Machine" instance=ExtResource("13_20132")]
+transform = Transform3D(-0.81712, 0, 14.9777, 0, 15, 0, -14.9777, 0, -0.81712, -26.2055, 75, -0.69444)
+
+[node name="Capsule12" parent="Machine" instance=ExtResource("14_01505")]
+transform = Transform3D(-11.9705, 0, 9.03916, 0, 15, 0, -9.03916, 0, -11.9705, -26.1447, 75, 18.8445)
+
+[node name="Capsule13" parent="Machine" instance=ExtResource("15_25354")]
+transform = Transform3D(-5.07971, 0, 14.1137, 0, 15, 0, -14.1137, 0, -5.07971, -10.5023, 75, -20.072)
+
+[node name="Capsule14" parent="Machine" instance=ExtResource("15_25354")]
+transform = Transform3D(13.4917, 0, 6.55548, 0, 15, 0, -6.55548, 0, 13.4917, -7.79762, 75, -0.35815)
+
+[node name="Capsule15" parent="Machine" instance=ExtResource("17_11580")]
+transform = Transform3D(-3.62625, 0, 14.5551, 0, 15, 0, -14.5551, 0, -3.62625, -9.33921, 75, 18.4757)
+
+[node name="Capsule16" parent="Machine" instance=ExtResource("16_17743")]
+transform = Transform3D(-13.1718, 0, 7.17659, 0, 15, 0, -7.17659, 0, -13.1718, 9.87376, 75, -20.6762)
+
+[node name="Capsule17" parent="Machine" instance=ExtResource("14_01505")]
+transform = Transform3D(-3.39764, 0, 14.6101, 0, 15, 0, -14.6101, 0, -3.39764, 8.23868, 75, 18.3079)
+
+[node name="Capsule18" parent="Machine" instance=ExtResource("13_20132")]
+transform = Transform3D(10.5564, 0, 10.6566, 0, 15, 0, -10.6566, 0, 10.5564, 28.8857, 75, -20.8335)
+
+[node name="Capsule19" parent="Machine" instance=ExtResource("17_11580")]
+transform = Transform3D(13.7269, 0, 6.04755, 0, 15, 0, -6.04755, 0, 13.7269, 26.3593, 75, -0.55921)
+
+[node name="Capsule20" parent="Machine" instance=ExtResource("17_11580")]
+transform = Transform3D(-3.21713, 0, 14.6509, 0, 15, 0, -14.6509, 0, -3.21713, -26.9197, 91, -19.4244)
+
+[node name="Capsule21" parent="Machine" instance=ExtResource("11_91543")]
+transform = Transform3D(10.3, 0, 10.9046, 0, 15, 0, -10.9046, 0, 10.3, -25.1085, 91, 1.24605)
+
+[node name="Capsule22" parent="Machine" instance=ExtResource("12_50930")]
+transform = Transform3D(-14.6761, 0, 3.1005, 0, 15, 0, -3.1005, 0, -14.6761, -28.0495, 91, 19.2043)
+
+[node name="Capsule23" parent="Machine" instance=ExtResource("11_91543")]
+transform = Transform3D(-14.7597, 0, 2.674, 0, 15, 0, -2.674, 0, -14.7597, -9.64437, 91, -18.8464)
+
+[node name="Capsule24" parent="Machine" instance=ExtResource("16_17743")]
+transform = Transform3D(14.757, 0, 2.68901, 0, 15, 0, -2.68901, 0, 14.757, -8.53681, 91, 0.52872)
+
+[node name="Capsule25" parent="Machine" instance=ExtResource("16_17743")]
+transform = Transform3D(-3.79523, 0, 14.5119, 0, 15, 0, -14.5119, 0, -3.79523, -9.58834, 91, 21.6693)
+
+[node name="Capsule26" parent="Machine" instance=ExtResource("16_17743")]
+transform = Transform3D(-6.62243, 0, 13.459, 0, 15, 0, -13.459, 0, -6.62243, 7.08873, 91, -21.7577)
+
+[node name="Capsule27" parent="Machine" instance=ExtResource("16_17743")]
+transform = Transform3D(12.9249, 0, 7.61227, 0, 15, 0, -7.61227, 0, 12.9249, 8.19455, 91, 20.4058)
+
+[node name="Capsule28" parent="Machine" instance=ExtResource("17_11580")]
+transform = Transform3D(9.3099, 0, 11.7612, 0, 15, 0, -11.7612, 0, 9.3099, 26.4766, 91, -19.6175)
+
+[node name="Capsule29" parent="Machine" instance=ExtResource("17_11580")]
+transform = Transform3D(-6.93204, 0, 13.3021, 0, 15, 0, -13.3021, 0, -6.93204, 28.2522, 91, 1.8855)
+
+[node name="Capsule30" parent="Machine" instance=ExtResource("11_91543")]
+transform = Transform3D(11.3157, 0, 9.84655, 0, 15, 0, -9.84655, 0, 11.3157, 25.8902, 91, 21.2152)
+
+[node name="Glass" type="MeshInstance3D" parent="Machine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 90, 0)
+mesh = SubResource("BoxMesh_16")

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="StandardMaterial3D" path="res://materials/shadow.tres" id="1_95567"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+material = ExtResource("1_95567")
+size = Vector3(3.2, 0.02, 1.8)
+
+[node name="shadow" type="MeshInstance3D" groups=["shadow"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.13, 0)
+mesh = SubResource("BoxMesh_1")

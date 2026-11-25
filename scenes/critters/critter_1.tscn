@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwfny5v2aja4n"]
+
+[ext_resource type="Material" path="res://materials/m_c9c9d0.tres" id="1_62081"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+material = ExtResource("1_62081")
+size = Vector3(9.04869, 8.04328, 12.0649)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2"]
+material = ExtResource("1_62081")
+size = Vector3(4.00331, 7.00579, 4.00331)
+
+[node name="critter_1" type="Node3D"]
+
+[node name="Body" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_1")
+
+[node name="Head" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, -2)
+mesh = SubResource("BoxMesh_2")

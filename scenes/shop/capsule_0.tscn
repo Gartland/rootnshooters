@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4tp3finqavwv"]
+
+[ext_resource type="Material" path="res://materials/m_ffffff.tres" id="1_74528"]
+[ext_resource type="Material" path="res://materials/m_ff3b3b.tres" id="2_20709"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+material = ExtResource("1_74528")
+size = Vector3(1.00232, 0.50116, 1.00232)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2"]
+material = ExtResource("2_20709")
+size = Vector3(1.00974, 0.50487, 1.00974)
+
+[node name="capsule_0" type="Node3D"]
+
+[node name="Top" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+mesh = SubResource("BoxMesh_1")
+
+[node name="Bottom" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+mesh = SubResource("BoxMesh_2")
