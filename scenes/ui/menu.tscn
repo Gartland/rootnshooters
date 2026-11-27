@@ -1,0 +1,165 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Theme" path="res://ui/theme.tres" id="1_theme"]
+
+[node name="Menu" type="Control"]
+theme = ExtResource("1_theme")
+mouse_filter = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Layout" type="MarginContainer" parent="."]
+mouse_filter = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="Layout"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="Layout/VBox"]
+layout_mode = 2
+text = "ROOT N\nSHOOTERS"
+horizontal_alignment = 1
+mouse_filter = 2
+theme_type_variation = &"TitleLabel"
+
+[node name="Spacer" type="Control" parent="Layout/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="Layout/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PV" type="VBoxContainer" parent="Layout/VBox/Panel"]
+layout_mode = 2
+
+[node name="PickLabel" type="Label" parent="Layout/VBox/Panel/PV"]
+layout_mode = 2
+text = "PICK"
+horizontal_alignment = 1
+theme_type_variation = &"SmallLabel"
+
+[node name="CharName" type="Label" parent="Layout/VBox/Panel/PV"]
+layout_mode = 2
+text = "Crocodile Cowboy"
+horizontal_alignment = 1
+unique_name_in_owner = true
+
+[node name="Dots" type="Label" parent="Layout/VBox/Panel/PV"]
+layout_mode = 2
+text = "●○○○○○○○○○○○○○○"
+horizontal_alignment = 1
+unique_name_in_owner = true
+theme_type_variation = &"DotsLabel"
+
+[node name="Coins" type="Label" parent="Layout/VBox/Panel/PV"]
+layout_mode = 2
+text = "COINS  0"
+horizontal_alignment = 1
+unique_name_in_owner = true
+
+[node name="Row" type="HBoxContainer" parent="Layout/VBox/Panel/PV"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 10
+
+[node name="PlayWrap" type="VBoxContainer" parent="Layout/VBox/Panel/PV/Row"]
+layout_mode = 2
+alignment = 1
+
+[node name="Caption" type="Label" parent="Layout/VBox/Panel/PV/Row/PlayWrap"]
+layout_mode = 2
+text = "PLAY"
+horizontal_alignment = 1
+theme_type_variation = &"SmallLabel"
+
+[node name="PlayButton" type="Button" parent="Layout/VBox/Panel/PV/Row/PlayWrap"]
+layout_mode = 2
+custom_minimum_size = Vector2(130, 52)
+focus_mode = 0
+text = "PLAY"
+unique_name_in_owner = true
+
+[node name="ShopWrap" type="VBoxContainer" parent="Layout/VBox/Panel/PV/Row"]
+layout_mode = 2
+alignment = 1
+
+[node name="Caption" type="Label" parent="Layout/VBox/Panel/PV/Row/ShopWrap"]
+layout_mode = 2
+text = "SHOP"
+horizontal_alignment = 1
+theme_type_variation = &"SmallLabel"
+
+[node name="ShopButton" type="Button" parent="Layout/VBox/Panel/PV/Row/ShopWrap"]
+layout_mode = 2
+custom_minimum_size = Vector2(100, 52)
+focus_mode = 0
+text = "SHOP"
+unique_name_in_owner = true
+theme_type_variation = &"SecondaryButton"
+
+[node name="SoundWrap" type="VBoxContainer" parent="Layout/VBox/Panel/PV/Row"]
+layout_mode = 2
+alignment = 1
+
+[node name="Caption" type="Label" parent="Layout/VBox/Panel/PV/Row/SoundWrap"]
+layout_mode = 2
+text = "SOUND"
+horizontal_alignment = 1
+theme_type_variation = &"SmallLabel"
+
+[node name="SoundButton" type="Button" parent="Layout/VBox/Panel/PV/Row/SoundWrap"]
+layout_mode = 2
+custom_minimum_size = Vector2(130, 52)
+focus_mode = 0
+text = "SOUND ON"
+unique_name_in_owner = true
+theme_type_variation = &"SecondaryButton"
+
+[node name="PrevButton" type="Button" parent="."]
+layout_mode = 1
+custom_minimum_size = Vector2(60, 70)
+focus_mode = 0
+text = "<"
+unique_name_in_owner = true
+theme_type_variation = &"SecondaryButton"
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -35.0
+offset_right = 70.0
+offset_bottom = 35.0
+grow_vertical = 2
+
+[node name="NextButton" type="Button" parent="."]
+layout_mode = 1
+custom_minimum_size = Vector2(60, 70)
+focus_mode = 0
+text = ">"
+unique_name_in_owner = true
+theme_type_variation = &"SecondaryButton"
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -35.0
+offset_right = -10.0
+offset_bottom = 35.0
+grow_horizontal = 0
+grow_vertical = 2

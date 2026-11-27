@@ -3,6 +3,7 @@ extends Node3D
 
 const SfxS = preload("res://sfx.gd")
 const AdsS = preload("res://ads.gd")
+const UI_SCENE = preload("res://scenes/ui/ui.tscn")
 const N = 15
 const CS = 140.0
 const COST = 500
@@ -83,8 +84,15 @@ var T = {}
 var swipe_x = null
 # ui
 var hud: Control
+var sticks: Control
+var hearts_l: Control
+var score_l: Label
+var coinbox_l: Control
+var coin_l: Label
+var boss_box: Control
+var boss_name: Label
+var boss_bar: ProgressBar
 var menu: Control
-var arrows: Control
 var ov: Control
 var pm: Control
 var flash: ColorRect
@@ -177,7 +185,7 @@ func _ready() -> void:
 		if not UN.has(i):
 			Chars.silhouette(CHM[i], true)
 	_build_machine()
-	_build_ui()
+	_bind_ui()
 	ads = AdsS.new()
 	add_child(ads)
 	ads.ready_changed.connect(refresh_up)
@@ -305,183 +313,60 @@ func _notification(what: int) -> void:
 		save()
 
 # ---------------------------------------------------------------- ui
-func lbl(text: String, size: int = 22, col: Color = Color("#16324f")) -> Label:
-	var l = Label.new()
-	l.text = text
-	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	l.add_theme_font_size_override("font_size", size)
-	l.add_theme_color_override("font_color", col)
-	return l
-
-func btn(text: String, cb: Callable, sec: bool = false, w: int = 110) -> Button:
-	var b = Button.new()
-	b.text = text
-	b.focus_mode = Control.FOCUS_NONE
-	b.custom_minimum_size = Vector2(w, 52)
-	b.add_theme_font_size_override("font_size", 20)
-	for st in ["normal", "hover", "pressed", "disabled"]:
-		var sb = StyleBoxFlat.new()
-		var c = Color("#5a6b7d") if sec else Color("#ff5a5f")
-		if st == "pressed":
-			c = c.darkened(.15)
-		if st == "disabled":
-			c = c.darkened(.3)
-		sb.bg_color = c
-		sb.set_corner_radius_all(6)
-		sb.border_width_bottom = 5
-		sb.border_color = c.darkened(.35)
-		b.add_theme_stylebox_override(st, sb)
-	b.add_theme_color_override("font_color", Color.WHITE)
-	b.add_theme_color_override("font_disabled_color", Color(1, 1, 1, .5))
-	b.pressed.connect(cb)
-	return b
-
-func wrapb(title: String, b: Button, id: String) -> VBoxContainer:
-	var v = VBoxContainer.new()
-	v.alignment = BoxContainer.ALIGNMENT_CENTER
-	var l = lbl(title, 11)
-	v.add_child(l)
-	v.add_child(b)
-	WRAP[id] = v
-	return v
-
-func panel() -> PanelContainer:
-	var p = PanelContainer.new()
-	var sb = StyleBoxFlat.new()
-	sb.bg_color = Color(1, 1, 1, .92)
-	sb.set_corner_radius_all(6)
-	sb.content_margin_left = 22
-	sb.content_margin_right = 22
-	sb.content_margin_top = 12
-	sb.content_margin_bottom = 16
-	sb.shadow_color = Color(.35, .23, .08, .35)
-	sb.shadow_size = 5
-	sb.shadow_offset = Vector2(0, 5)
-	p.add_theme_stylebox_override("panel", sb)
-	p.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	return p
-
-func full(c: Control) -> void:
-	c.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-
-func _build_ui() -> void:
-	var cl = CanvasLayer.new()
-	add_child(cl)
-	hud = Control.new()
-	full(hud)
-	hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	hud.draw.connect(_hud_draw)
-	cl.add_child(hud)
-	# ---- menu
-	menu = MarginContainer.new()
-	full(menu)
-	menu.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	for s in ["left", "right", "top", "bottom"]:
-		menu.add_theme_constant_override("margin_" + s, 16)
-	cl.add_child(menu)
-	var vb = VBoxContainer.new()
-	vb.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	menu.add_child(vb)
-	var title = lbl("ROOT N\nSHOOTERS", 44, Color("#ffd23f"))
-	title.add_theme_color_override("font_outline_color", Color("#24140a"))
-	title.add_theme_constant_override("outline_size", 14)
-	vb.add_child(title)
-	var sp = Control.new()
-	sp.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	sp.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	vb.add_child(sp)
-	var pn = panel()
-	vb.add_child(pn)
-	var pv = VBoxContainer.new()
-	pn.add_child(pv)
-	pv.add_child(lbl("PICK", 11))
-	cn_l = lbl("", 22)
-	pv.add_child(cn_l)
-	dots_l = lbl("", 12)
-	pv.add_child(dots_l)
-	bk_l = lbl("", 20)
-	pv.add_child(bk_l)
-	var row = HBoxContainer.new()
-	row.alignment = BoxContainer.ALIGNMENT_CENTER
-	row.add_theme_constant_override("separation", 10)
-	pv.add_child(row)
-	b_play = btn("PLAY", start, false, 130)
-	b_snd = btn("SOUND ON", _toggle_snd, true, 130)
-	row.add_child(wrapb("PLAY", b_play, "play"))
-	row.add_child(wrapb("SHOP", btn("SHOP", open_shop, true, 100), "shop"))
-	row.add_child(wrapb("SOUND", b_snd, "snd"))
-	b_al = btn("<", func(): pick(-1), true, 60)
-	b_ar = btn(">", func(): pick(1), true, 60)
-	arrows = Control.new()
-	full(arrows)
-	arrows.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	cl.add_child(arrows)
-	for b in [b_al, b_ar]:
-		b.custom_minimum_size = Vector2(60, 70)
-		arrows.add_child(b)
-	b_al.set_anchors_and_offsets_preset(Control.PRESET_CENTER_LEFT)
-	b_ar.set_anchors_and_offsets_preset(Control.PRESET_CENTER_RIGHT)
-	b_al.position.x += 10
-	b_ar.position.x -= 10
-	# ---- game over
-	ov = CenterContainer.new()
-	full(ov)
-	ov.visible = false
-	cl.add_child(ov)
-	var op = panel()
-	ov.add_child(op)
-	var ob = VBoxContainer.new()
-	op.add_child(ob)
-	ob.add_child(lbl("GAME OVER", 28, Color("#ff7b7b")))
-	msg_l = lbl("", 22)
-	ob.add_child(msg_l)
-	var orow = HBoxContainer.new()
-	orow.add_theme_constant_override("separation", 10)
-	ob.add_child(orow)
-	b_up = btn("1-UP 200", one_up, true, 120)
-	orow.add_child(wrapb("1-UP", b_up, "up"))
-	orow.add_child(wrapb("AGAIN", btn("AGAIN", start, false, 110), "again"))
-	orow.add_child(wrapb("HOME", btn("HOME", go_home, true, 100), "home"))
-	# ---- shop
-	pm = MarginContainer.new()
-	full(pm)
-	pm.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	pm.visible = false
-	for s in ["left", "right", "top", "bottom"]:
-		pm.add_theme_constant_override("margin_" + s, 16)
-	cl.add_child(pm)
-	var pvb = VBoxContainer.new()
-	pvb.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	pm.add_child(pvb)
-	var sp2 = Control.new()
-	sp2.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	sp2.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	pvb.add_child(sp2)
-	var pp = panel()
-	pvb.add_child(pp)
-	var ppv = VBoxContainer.new()
-	pp.add_child(ppv)
-	bk3_l = lbl("", 20)
-	ppv.add_child(bk3_l)
-	pr_l = lbl("", 20)
-	pr_l.custom_minimum_size.y = 28
-	ppv.add_child(pr_l)
-	var prow = HBoxContainer.new()
-	prow.alignment = BoxContainer.ALIGNMENT_CENTER
-	prow.add_theme_constant_override("separation", 8)
-	ppv.add_child(prow)
-	b_sp = btn("BUY 500", func(): spin(false), false, 110)
-	b_fr = btn("FREE", func(): spin(true), false, 130)
-	prow.add_child(wrapb("BUY", b_sp, "sp"))
-	prow.add_child(wrapb("FREE", b_fr, "fr"))
-	prow.add_child(wrapb("OPEN", btn("OPEN", open_cap, false, 100), "op"))
-	prow.add_child(wrapb("OK", btn("OK", shop_ok, false, 100), "ok"))
-	prow.add_child(wrapb("BACK", btn("BACK", shop_back, true, 100), "bk2"))
-	flash = ColorRect.new()
-	full(flash)
-	flash.color = Color(1, 1, 1, 0)
-	flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	cl.add_child(flash)
+func _bind_ui() -> void:
+	# The whole UI lives in res://scenes/ui/*.tscn (styled by res://ui/theme.tres).
+	# Nodes are found by unique name (%Name), so you can rearrange the layout freely in the editor.
+	var ui = UI_SCENE.instantiate()
+	add_child(ui)
+	hud = ui.get_node("Hud")
+	menu = ui.get_node("Menu")
+	ov = ui.get_node("GameOver")
+	pm = ui.get_node("Shop")
+	flash = ui.get_node("%Flash")
+	hearts_l = hud.get_node("%Hearts")
+	score_l = hud.get_node("%Score")
+	coinbox_l = hud.get_node("%CoinBox")
+	coin_l = hud.get_node("%CoinLabel")
+	boss_box = hud.get_node("%BossBox")
+	boss_name = hud.get_node("%BossName")
+	boss_bar = hud.get_node("%BossBar")
+	sticks = hud.get_node("%Sticks")
+	sticks.draw.connect(_sticks_draw)
+	# menu
+	cn_l = menu.get_node("%CharName")
+	dots_l = menu.get_node("%Dots")
+	bk_l = menu.get_node("%Coins")
+	b_play = menu.get_node("%PlayButton")
+	b_snd = menu.get_node("%SoundButton")
+	b_al = menu.get_node("%PrevButton")
+	b_ar = menu.get_node("%NextButton")
+	b_play.pressed.connect(start)
+	menu.get_node("%ShopButton").pressed.connect(open_shop)
+	b_snd.pressed.connect(_toggle_snd)
+	b_al.pressed.connect(func(): pick(-1))
+	b_ar.pressed.connect(func(): pick(1))
+	# game over
+	msg_l = ov.get_node("%Message")
+	b_up = ov.get_node("%UpButton")
+	b_up.pressed.connect(one_up)
+	ov.get_node("%AgainButton").pressed.connect(start)
+	ov.get_node("%HomeButton").pressed.connect(go_home)
+	WRAP["up"] = ov.get_node("%UpWrap")
+	# shop
+	bk3_l = pm.get_node("%Coins")
+	pr_l = pm.get_node("%PrizeLabel")
+	b_sp = pm.get_node("%SpinButton")
+	b_fr = pm.get_node("%FreeButton")
+	b_sp.pressed.connect(func(): spin(false))
+	b_fr.pressed.connect(func(): spin(true))
+	pm.get_node("%OpenButton").pressed.connect(open_cap)
+	pm.get_node("%OkButton").pressed.connect(shop_ok)
+	pm.get_node("%BackButton").pressed.connect(shop_back)
+	WRAP["sp"] = pm.get_node("%SpinWrap")
+	WRAP["fr"] = pm.get_node("%FreeWrap")
+	WRAP["op"] = pm.get_node("%OpenWrap")
+	WRAP["ok"] = pm.get_node("%OkWrap")
+	WRAP["bk2"] = pm.get_node("%BackWrap")
 	var tm_ = Timer.new()
 	tm_.wait_time = 1.0
 	tm_.autostart = true
@@ -492,7 +377,6 @@ func _build_ui() -> void:
 
 func set_menu(v: bool) -> void:
 	menu.visible = v
-	arrows.visible = v
 
 func _snd_label() -> void:
 	b_snd.text = "SOUND OFF" if sfx.muted else "SOUND ON"
@@ -508,49 +392,37 @@ func show_btns(ids: Array) -> void:
 	for id in ["sp", "fr", "bk2", "op", "ok"]:
 		WRAP[id].visible = ids.has(id)
 
-func _hud_draw() -> void:
-	var f = hud.get_theme_default_font()
-	var active = S == "play" or S == "over"
-	if active and not P.is_empty():
-		for i in maxi(0, P.hp):
-			_heart(Vector2(26 + i * 30, 30))
-		hud.draw_string_outline(f, Vector2(0, 38), str(score), HORIZONTAL_ALIGNMENT_CENTER, W, 28, 6, Color("#06284d"))
-		hud.draw_string(f, Vector2(0, 38), str(score), HORIZONTAL_ALIGNMENT_CENTER, W, 28, Color.WHITE)
-		var ct = str(coins)
-		var tw = f.get_string_size(ct, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
-		hud.draw_rect(Rect2(W - 16 - tw - 26, 14, 18, 18), Color("#ffd23f"))
-		hud.draw_rect(Rect2(W - 16 - tw - 26, 14, 18, 18), Color("#b8860b"), false, 2.0)
-		hud.draw_string_outline(f, Vector2(W - 16 - tw, 34), ct, HORIZONTAL_ALIGNMENT_LEFT, -1, 24, 6, Color("#06284d"))
-		hud.draw_string(f, Vector2(W - 16 - tw, 34), ct, HORIZONTAL_ALIGNMENT_LEFT, -1, 24, Color.WHITE)
-	# boss bar (new in this version)
-	if S == "play":
-		for e in E:
-			if e.ty == 3 and e.hp > 0:
-				var bw = minf(W * .72, 320.0)
-				var bxp = (W - bw) / 2.0
-				var nm: String = BN[e.v]
-				hud.draw_string_outline(f, Vector2(bxp, 62), nm, HORIZONTAL_ALIGNMENT_CENTER, bw, 16, 6, Color("#24140a"))
-				hud.draw_string(f, Vector2(bxp, 62), nm, HORIZONTAL_ALIGNMENT_CENTER, bw, 16, Color.WHITE)
-				hud.draw_rect(Rect2(bxp, 68, bw, 20), Color("#24140a"))
-				hud.draw_rect(Rect2(bxp + 3, 71, (bw - 6) * clampf(e.hp / e.mhp, 0, 1), 14), Color("#ff4d6d"))
-				break
+func _sticks_draw() -> void:
 	if tm and S == "play":
 		for s in ["L", "R"]:
 			if not T.has(s):
-				var hx = W * .2 if s == "L" else W * .8
-				var hy = H * .78
-				hud.draw_arc(Vector2(hx, hy), 60, 0, TAU, 40, Color(1, 1, 1, .45), 4.0)
+				sticks.draw_arc(Vector2(W * (.2 if s == "L" else .8), H * .78), 60, 0, TAU, 40, Color(1, 1, 1, .45), 4.0)
 	for s in T:
 		var o = T[s]
-		hud.draw_arc(Vector2(o.ox, o.oy), 60, 0, TAU, 40, Color(1, 1, 1, .7), 4.0)
+		sticks.draw_arc(Vector2(o.ox, o.oy), 60, 0, TAU, 40, Color(1, 1, 1, .7), 4.0)
 		var v = stick(o)
-		hud.draw_rect(Rect2(o.ox + v.x * 60 - 18, o.oy + v.y * 60 - 18, 36, 36), Color(1, 1, 1, .6))
+		sticks.draw_rect(Rect2(o.ox + v.x * 60 - 18, o.oy + v.y * 60 - 18, 36, 36), Color(1, 1, 1, .6))
 
-func _heart(c: Vector2) -> void:
-	var col = Color("#ff4d6d")
-	hud.draw_circle(c + Vector2(-6, -4), 7, col)
-	hud.draw_circle(c + Vector2(6, -4), 7, col)
-	hud.draw_colored_polygon(PackedVector2Array([c + Vector2(-12.5, -1), c + Vector2(12.5, -1), c + Vector2(0, 14)]), col)
+func _update_hud() -> void:
+	var shown = (S == "play" or S == "over") and not P.is_empty()
+	hearts_l.visible = shown
+	score_l.visible = shown
+	coinbox_l.visible = shown
+	if shown:
+		var hs = hearts_l.get_children()
+		for i in hs.size():
+			hs[i].visible = i < P.hp
+		score_l.text = str(score)
+		coin_l.text = str(coins)
+	boss_box.visible = false
+	if S == "play":
+		for e in E:
+			if e.ty == 3 and e.hp > 0:
+				boss_box.visible = true
+				boss_name.text = BN[e.v]
+				boss_bar.value = clampf(e.hp / e.mhp, 0.0, 1.0) * 100.0
+				break
+	sticks.queue_redraw()
 
 # ---------------------------------------------------------------- menu / carousel
 func pick(d: int) -> void:
@@ -1821,4 +1693,4 @@ func _process(delta: float) -> void:
 			parts(dt)
 		shake *= .9
 	sync()
-	hud.queue_redraw()
+	_update_hud()

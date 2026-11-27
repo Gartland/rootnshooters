@@ -30,6 +30,19 @@ Bullets, enemy shots and particles are still spawned from code because their siz
 
 `tools/gen_scenes.py` regenerates every scene/material (`python3 tools/gen_scenes.py`) – handy for bulk changes; editing the scenes by hand is fine too, but regenerating will overwrite them.
 
+## UI (editable layout)
+The UI is built from scenes and a shared theme – open them in the Godot editor and rearrange freely:
+- `scenes/ui/ui.tscn` – root (CanvasLayer) that nests the four screens below plus the white `Flash` overlay
+- `scenes/ui/hud.tscn` – hearts, score, coins, boss bar (real nodes), plus the touch-stick overlay
+- `scenes/ui/menu.tscn` – title, character picker, PLAY / SHOP / SOUND, left/right arrows
+- `scenes/ui/game_over.tscn` – score + 1-UP / AGAIN / HOME
+- `scenes/ui/shop.tscn` – prize machine controls (BUY / FREE / OPEN / OK / BACK)
+- `ui/theme.tres` – button, panel and label styles (e.g. `SecondaryButton`, `TitleLabel`, `ScoreLabel`, `BossBar` variations)
+`main.gd` finds nodes by **unique name** (`%PlayButton`, `%Score`, `%UpWrap`, ...), so move or restyle them as you like –
+just keep those names (and the node types: Buttons stay Buttons, etc.). Button texts that change at runtime
+(PLAY/LOCKED, SOUND ON/OFF, 1-UP AD/200, FREE timer) are set by code. The stick rings are drawn by code on `Sticks`.
+`tools/gen_ui.py` regenerates all of this (it overwrites your edits, so only use it if you want a reset).
+
 ## AdMob (optional – Game Over 1-UP)
 `ads.gd` shows an AdMob **rewarded ad** when the player taps 1-UP on the Game Over screen. The free 1-UP is granted after the ad closes, only if the player earned the reward.
 If ads are disabled, unsupported (desktop/web), the plugin is missing, or no ad could load, the button automatically

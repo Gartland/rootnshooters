@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://t5txm4jxofa0"]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="1_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/menu.tscn" id="2_menu"]
+[ext_resource type="PackedScene" path="res://scenes/ui/game_over.tscn" id="3_game_over"]
+[ext_resource type="PackedScene" path="res://scenes/ui/shop.tscn" id="4_shop"]
+
+[node name="UI" type="CanvasLayer"]
+
+[node name="Hud" parent="." instance=ExtResource("1_hud")]
+
+[node name="Menu" parent="." instance=ExtResource("2_menu")]
+
+[node name="GameOver" parent="." instance=ExtResource("3_game_over")]
+
+[node name="Shop" parent="." instance=ExtResource("4_shop")]
+
+[node name="Flash" type="ColorRect" parent="."]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)

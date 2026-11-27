@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Root n Shooters"
 run/main_scene="res://main.tscn"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+config/features=PackedStringArray("4.2", "GL Compatibility")
 
 [display]
 
@@ -25,6 +25,5 @@ window/stretch/aspect="expand"
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.902, 0.761, 0.494, 1)
 anti_aliasing/quality/msaa_3d=2
