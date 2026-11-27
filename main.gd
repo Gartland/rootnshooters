@@ -10,10 +10,10 @@ const FREE_MS = 6.0 * 3600.0 * 1000.0
 const MAXHP = 3
 # Bounce height (world units) of the hop animation. Models are authored at unit size and the root is scaled,
 # so the code divides by the model's scale ("bs") to keep these values in world units.
-const BOUNCE_PLAYER = 3.0   # in-game player hop (scaled by movement speed)
-const BOUNCE_ENEMY = 2.5    # enemy / boss hop
-const BOUNCE_MENU = 3.0     # character carousel + shop reveal (also multiplied by the display zoom)
 const WL = ["dbl", "tri", "wide", "quad", "mega", "mdbl", "cross", "homing", "badger", "tow", "sky", "cannon", "zap", "cruze", "wand", "shield"]
+const BOUNCE_PLAYER = 1.0   # in-game player hop (scaled by movement speed). HTML original: 3.0
+const BOUNCE_ENEMY = 0.8    # enemy / boss hop. HTML original: 2.5
+const BOUNCE_MENU = 1.0     # character carousel + shop reveal (also multiplied by the display zoom). HTML original: 3.0
 const RB = ["#ff3b3b", "#ff9f1c", "#ffe14d", "#3ddc6e", "#2e86de", "#5b4bff", "#b05ce6"]
 const COLS = ["#ff5a5f", "#ffd23f", "#3ddc6e", "#2e86de", "#b05ce6", "#ff9f1c"]
 const BN = ["Big Bill Bison", "Vulture Vern", "Coyote Kid", "Rattler King", "Scorpion Mcgee", "Big Bear Bandit"]
@@ -78,6 +78,7 @@ var ZB: Node3D
 var mdown = false
 var um = false
 var tm = false
+var is_mobile = OS.has_feature("mobile") or OS.has_feature("web_android") or OS.has_feature("web_ios")
 var T = {}
 var swipe_x = null
 # ui
@@ -601,9 +602,9 @@ func _input(e: InputEvent) -> void:
 			if e.physical_keycode == KEY_RIGHT or e.physical_keycode == KEY_D: pick(1)
 		if (e.physical_keycode == KEY_ENTER or e.physical_keycode == KEY_SPACE) and S != "play" and not pmOpen:
 			start()
-	elif e is InputEventMouseMotion and e.device != InputEvent.DEVICE_ID_EMULATION:
+	elif e is InputEventMouseMotion :
 		um = true
-	elif e is InputEventMouseButton and e.device != InputEvent.DEVICE_ID_EMULATION:
+	elif e is InputEventMouseButton :
 		if e.button_index == MOUSE_BUTTON_LEFT:
 			mdown = e.pressed
 			um = true
@@ -1349,7 +1350,7 @@ func upd(dt) -> void:
 		var q = to_w(rx, ry)
 		P.ang = atan2(q.y, q.x)
 		fire = true
-	elif um:
+	elif um and not tm and not is_mobile:
 		var h = mouse_world()
 		if h != null:
 			P.ang = atan2(h.z - P.y, h.x - P.x)
