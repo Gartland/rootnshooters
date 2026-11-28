@@ -1,9 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://bwavau5gshjmh"]
+[gd_scene load_steps=22 format=3 uid="uid://6cwrsbg6ch11"]
 
-[ext_resource type="Material" path="res://materials/m_8f5f33.tres" id="1_53605"]
-[ext_resource type="Material" path="res://materials/m_b9814a.tres" id="2_07194"]
+[ext_resource type="Material" uid="uid://b4xm1axwnux8n" path="res://materials/m_8f5f33.tres" id="1_53605"]
+[ext_resource type="Material" uid="uid://bryr12a5pnd1q" path="res://materials/m_b9814a.tres" id="2_07194"]
 [ext_resource type="Material" path="res://materials/m_222222.tres" id="3_53271"]
-[ext_resource type="Material" path="res://materials/m_5a3a1c.tres" id="4_21238"]
+[ext_resource type="Material" uid="uid://bdfm5aaj2ufef" path="res://materials/m_5a3a1c.tres" id="4_21238"]
 [ext_resource type="Material" path="res://materials/m_ffffff.tres" id="5_74528"]
 [ext_resource type="Material" path="res://materials/m_111111.tres" id="6_27680"]
 [ext_resource type="Material" path="res://materials/m_ffd23f.tres" id="7_97386"]
@@ -32,10 +32,6 @@ size = Vector3(1.5085, 1.2068, 1.5085)
 [sub_resource type="BoxMesh" id="BoxMesh_6"]
 material = ExtResource("3_53271")
 size = Vector3(0.70076, 0.25027, 0.20022)
-
-[sub_resource type="BoxMesh" id="BoxMesh_7"]
-material = ExtResource("2_07194")
-size = Vector3(1.10935, 0.75637, 1.4119)
 
 [sub_resource type="BoxMesh" id="BoxMesh_8"]
 material = ExtResource("4_21238")
@@ -96,36 +92,33 @@ mesh = SubResource("BoxMesh_5")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.664604, 0.18385, 0.669465)
 mesh = SubResource("BoxMesh_6")
 
-[node name="Box7" type="MeshInstance3D" parent="Inner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.8, 0)
-mesh = SubResource("BoxMesh_7")
-
 [node name="Box8" type="MeshInstance3D" parent="Inner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.18, 1.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.70669, 0.959574, 0)
 mesh = SubResource("BoxMesh_8")
 
 [node name="Box9" type="MeshInstance3D" parent="Inner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.17, 2, 0.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.69669, 1.35957, 0.4)
 mesh = SubResource("BoxMesh_9")
 
 [node name="Box10" type="MeshInstance3D" parent="Inner"]
-transform = Transform3D(1.00458, 0, 0, 0, 0.336301, 0, 0, 0, 1.05929, 1.205, 2, 0.423716)
+transform = Transform3D(1.00458, 0, 0, 0, 0.336301, 0, 0, 0, 1.05929, 0.73169, 1.35957, 0.423716)
 mesh = SubResource("BoxMesh_10")
 
 [node name="Box11" type="MeshInstance3D" parent="Inner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.17, 2, -0.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.69669, 1.35957, -0.4)
 mesh = SubResource("BoxMesh_11")
 
 [node name="Box12" type="MeshInstance3D" parent="Inner"]
-transform = Transform3D(1.00458, 0, 0, 0, 0.336301, 0, 0, 0, 1.05929, 1.205, 2, -0.423716)
+transform = Transform3D(1.00458, 0, 0, 0, 0.336301, 0, 0, 0, 1.05929, 0.73169, 1.35957, -0.423716)
 mesh = SubResource("BoxMesh_12")
 
-[node name="Box13" type="MeshInstance3D" parent="Inner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.3, 0)
+[node name="Hat" type="MeshInstance3D" parent="Inner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0355623, 1.62578, 0)
 mesh = SubResource("BoxMesh_13")
 
-[node name="Box14" type="MeshInstance3D" parent="Inner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.59, 0)
+[node name="Box14" type="MeshInstance3D" parent="Inner/Hat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29, 0)
 mesh = SubResource("BoxMesh_14")
+skeleton = NodePath("../..")
 
 [node name="Shadow" parent="." instance=ExtResource("8_72919")]

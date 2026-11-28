@@ -1,14 +1,14 @@
-[gd_scene load_steps=32 format=3 uid="uid://bgb20vbgb4wgy"]
+[gd_scene load_steps=32 format=3 uid="uid://5y7xrtd76yta"]
 
-[ext_resource type="Material" path="res://materials/m_8a7a6a.tres" id="1_82776"]
-[ext_resource type="Material" path="res://materials/m_817569.tres" id="2_06422"]
-[ext_resource type="Material" path="res://materials/m_b9a897.tres" id="3_71158"]
+[ext_resource type="Material" uid="uid://bvyhbibpvhbbp" path="res://materials/m_8a7a6a.tres" id="1_82776"]
+[ext_resource type="Material" uid="uid://c1yik2grluyp" path="res://materials/m_817569.tres" id="2_06422"]
+[ext_resource type="Material" uid="uid://ccsbk5myudt4n" path="res://materials/m_b9a897.tres" id="3_71158"]
 [ext_resource type="Material" path="res://materials/m_222222.tres" id="4_53271"]
-[ext_resource type="Material" path="res://materials/m_d9c7b5.tres" id="5_77433"]
+[ext_resource type="Material" uid="uid://dh32mvg8jl8i3" path="res://materials/m_d9c7b5.tres" id="5_77433"]
 [ext_resource type="Material" path="res://materials/m_ffffff.tres" id="6_74528"]
 [ext_resource type="Material" path="res://materials/m_111111.tres" id="7_27680"]
-[ext_resource type="Material" path="res://materials/m_d8c08a.tres" id="8_05446"]
-[ext_resource type="Material" path="res://materials/m_6b4a2b.tres" id="9_63813"]
+[ext_resource type="Material" uid="uid://qsp2anpya35u" path="res://materials/m_d8c08a.tres" id="8_05446"]
+[ext_resource type="Material" uid="uid://cuucslxmb67vl" path="res://materials/m_6b4a2b.tres" id="9_63813"]
 [ext_resource type="Material" path="res://materials/m_ffd23f.tres" id="10_97386"]
 [ext_resource type="PackedScene" path="res://scenes/common/shadow.tscn" id="11_72919"]
 
@@ -163,17 +163,19 @@ mesh = SubResource("BoxMesh_15")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08, 2, -0.3)
 mesh = SubResource("BoxMesh_16")
 
-[node name="Box16" type="MeshInstance3D" parent="Inner"]
+[node name="Hat" type="MeshInstance3D" parent="Inner"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 2.3, 0)
 mesh = SubResource("BoxMesh_17")
 
-[node name="Box17" type="MeshInstance3D" parent="Inner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 2.623, 0)
+[node name="Box17" type="MeshInstance3D" parent="Inner/Hat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.283868, 0)
 mesh = SubResource("BoxMesh_18")
+skeleton = NodePath("../..")
 
-[node name="Box18" type="MeshInstance3D" parent="Inner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 2.47, 0)
+[node name="Box18" type="MeshInstance3D" parent="Inner/Hat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.130868, 0)
 mesh = SubResource("BoxMesh_19")
+skeleton = NodePath("../..")
 
 [node name="Box19" type="MeshInstance3D" parent="Inner"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 1, 0.52)

@@ -1,15 +1,15 @@
-[gd_scene load_steps=30 format=3]
+[gd_scene load_steps=30 format=3 uid="uid://b5bnx3g5rior2"]
 
-[ext_resource type="StandardMaterial3D" path="res://materials/m_a77d4a.tres" id="1_19227"]
-[ext_resource type="StandardMaterial3D" path="res://materials/m_8c704a.tres" id="2_65908"]
-[ext_resource type="StandardMaterial3D" path="res://materials/m_c9a06a.tres" id="3_82656"]
-[ext_resource type="StandardMaterial3D" path="res://materials/m_222222.tres" id="4_53271"]
-[ext_resource type="StandardMaterial3D" path="res://materials/m_f1e0c0.tres" id="5_53112"]
-[ext_resource type="StandardMaterial3D" path="res://materials/m_e8d0b0.tres" id="6_66084"]
-[ext_resource type="StandardMaterial3D" path="res://materials/m_111111.tres" id="7_27680"]
-[ext_resource type="StandardMaterial3D" path="res://materials/m_ffffff.tres" id="8_74528"]
-[ext_resource type="StandardMaterial3D" path="res://materials/m_a67c52.tres" id="9_43153"]
-[ext_resource type="StandardMaterial3D" path="res://materials/m_ffd23f.tres" id="10_97386"]
+[ext_resource type="Material" uid="uid://dxslowxqnoly6" path="res://materials/m_a77d4a.tres" id="1_19227"]
+[ext_resource type="Material" uid="uid://cvfbwkegxoxro" path="res://materials/m_8c704a.tres" id="2_65908"]
+[ext_resource type="Material" uid="uid://c6iq5qbqifef3" path="res://materials/m_c9a06a.tres" id="3_82656"]
+[ext_resource type="Material" path="res://materials/m_222222.tres" id="4_53271"]
+[ext_resource type="Material" uid="uid://bchp4nlmxvqc4" path="res://materials/m_f1e0c0.tres" id="5_53112"]
+[ext_resource type="Material" uid="uid://d0d1le8xk34hw" path="res://materials/m_e8d0b0.tres" id="6_66084"]
+[ext_resource type="Material" path="res://materials/m_111111.tres" id="7_27680"]
+[ext_resource type="Material" path="res://materials/m_ffffff.tres" id="8_74528"]
+[ext_resource type="Material" uid="uid://bakeujahtcbq8" path="res://materials/m_a67c52.tres" id="9_43153"]
+[ext_resource type="Material" path="res://materials/m_ffd23f.tres" id="10_97386"]
 [ext_resource type="PackedScene" path="res://scenes/common/shadow.tscn" id="11_72919"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_1"]
@@ -151,16 +151,18 @@ mesh = SubResource("BoxMesh_14")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.105, 2.05, -0.3)
 mesh = SubResource("BoxMesh_15")
 
-[node name="Box15" type="MeshInstance3D" parent="Inner"]
+[node name="Hat" type="MeshInstance3D" parent="Inner"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.4, 0)
 mesh = SubResource("BoxMesh_16")
 
-[node name="Box16" type="MeshInstance3D" parent="Inner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.67, 0)
+[node name="Box16" type="MeshInstance3D" parent="Inner/Hat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.27, 0)
 mesh = SubResource("BoxMesh_17")
+skeleton = NodePath("../..")
 
-[node name="Box17" type="MeshInstance3D" parent="Inner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.52, 0)
+[node name="Box17" type="MeshInstance3D" parent="Inner/Hat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0)
 mesh = SubResource("BoxMesh_18")
+skeleton = NodePath("../..")
 
 [node name="Shadow" parent="." instance=ExtResource("11_72919")]

@@ -1,15 +1,28 @@
 [gd_scene load_steps=5 format=3 uid="uid://t5txm4jxofa0"]
 
-[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="1_hud"]
+[ext_resource type="PackedScene" uid="uid://d4k76mwtpy1rg" path="res://scenes/ui/hud.tscn" id="1_hud"]
 [ext_resource type="PackedScene" path="res://scenes/ui/menu.tscn" id="2_menu"]
 [ext_resource type="PackedScene" path="res://scenes/ui/game_over.tscn" id="3_game_over"]
-[ext_resource type="PackedScene" path="res://scenes/ui/shop.tscn" id="4_shop"]
+[ext_resource type="PackedScene" uid="uid://dxahrcimu08vy" path="res://scenes/ui/shop.tscn" id="4_shop"]
 
 [node name="UI" type="CanvasLayer"]
 
 [node name="Hud" parent="." instance=ExtResource("1_hud")]
 
 [node name="Menu" parent="." instance=ExtResource("2_menu")]
+
+[node name="Panel" parent="Menu/Layout/VBox" index="2"]
+self_modulate = Color(1, 1, 1, 0)
+
+[node name="PrevButton" parent="Menu" index="1"]
+anchors_preset = 4
+offset_left = 0.0
+offset_right = 60.0
+
+[node name="NextButton" parent="Menu" index="2"]
+anchors_preset = 6
+offset_left = -60.0
+offset_right = 0.0
 
 [node name="GameOver" parent="." instance=ExtResource("3_game_over")]
 
@@ -24,3 +37,5 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 1, 1, 0)
+
+[editable path="Menu"]

@@ -1,17 +1,16 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://cbqktffqu4ia5"]
 
-[ext_resource type="Theme" path="res://ui/theme.tres" id="1_theme"]
+[ext_resource type="Theme" uid="uid://mvs34cwbvalw" path="res://ui/theme.tres" id="1_theme"]
 
 [node name="GameOver" type="CenterContainer"]
-theme = ExtResource("1_theme")
 visible = false
-mouse_filter = 2
-layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_theme")
 
 [node name="Panel" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -21,39 +20,40 @@ layout_mode = 2
 
 [node name="Title" type="Label" parent="Panel/VBox"]
 layout_mode = 2
+theme_type_variation = &"OverTitle"
 text = "GAME OVER"
 horizontal_alignment = 1
-theme_type_variation = &"OverTitle"
 
 [node name="Message" type="Label" parent="Panel/VBox"]
-layout_mode = 2
-text = "0\nBEST 0      COINS +0"
-horizontal_alignment = 1
 unique_name_in_owner = true
+layout_mode = 2
+text = "0
+BEST 0      COINS +0"
+horizontal_alignment = 1
 
 [node name="Row" type="HBoxContainer" parent="Panel/VBox"]
 layout_mode = 2
-alignment = 1
 theme_override_constants/separation = 10
+alignment = 1
 
 [node name="UpWrap" type="VBoxContainer" parent="Panel/VBox/Row"]
+unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
-unique_name_in_owner = true
 
 [node name="Caption" type="Label" parent="Panel/VBox/Row/UpWrap"]
 layout_mode = 2
+theme_type_variation = &"SmallLabel"
 text = "1-UP"
 horizontal_alignment = 1
-theme_type_variation = &"SmallLabel"
 
 [node name="UpButton" type="Button" parent="Panel/VBox/Row/UpWrap"]
-layout_mode = 2
-custom_minimum_size = Vector2(120, 52)
-focus_mode = 0
-text = "1-UP 200"
 unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 52)
+layout_mode = 2
+focus_mode = 0
 theme_type_variation = &"SecondaryButton"
+text = "1-UP 200"
 
 [node name="AgainWrap" type="VBoxContainer" parent="Panel/VBox/Row"]
 layout_mode = 2
@@ -61,16 +61,16 @@ alignment = 1
 
 [node name="Caption" type="Label" parent="Panel/VBox/Row/AgainWrap"]
 layout_mode = 2
+theme_type_variation = &"SmallLabel"
 text = "AGAIN"
 horizontal_alignment = 1
-theme_type_variation = &"SmallLabel"
 
 [node name="AgainButton" type="Button" parent="Panel/VBox/Row/AgainWrap"]
-layout_mode = 2
+unique_name_in_owner = true
 custom_minimum_size = Vector2(110, 52)
+layout_mode = 2
 focus_mode = 0
 text = "AGAIN"
-unique_name_in_owner = true
 
 [node name="HomeWrap" type="VBoxContainer" parent="Panel/VBox/Row"]
 layout_mode = 2
@@ -78,14 +78,14 @@ alignment = 1
 
 [node name="Caption" type="Label" parent="Panel/VBox/Row/HomeWrap"]
 layout_mode = 2
+theme_type_variation = &"SmallLabel"
 text = "HOME"
 horizontal_alignment = 1
-theme_type_variation = &"SmallLabel"
 
 [node name="HomeButton" type="Button" parent="Panel/VBox/Row/HomeWrap"]
-layout_mode = 2
-custom_minimum_size = Vector2(100, 52)
-focus_mode = 0
-text = "HOME"
 unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 52)
+layout_mode = 2
+focus_mode = 0
 theme_type_variation = &"SecondaryButton"
+text = "HOME"

@@ -1,17 +1,17 @@
-[gd_scene load_steps=31 format=3]
+[gd_scene load_steps=31 format=3 uid="uid://bqymhcb4her8g"]
 
-[ext_resource type="StandardMaterial3D" path="res://materials/m_5c4329.tres" id="1_70901"]
-[ext_resource type="StandardMaterial3D" path="res://materials/m_553e28.tres" id="2_77751"]
-[ext_resource type="StandardMaterial3D" path="res://materials/m_7a5a3a.tres" id="3_89727"]
-[ext_resource type="StandardMaterial3D" path="res://materials/m_222222.tres" id="4_53271"]
-[ext_resource type="StandardMaterial3D" path="res://materials/m_e0a458.tres" id="5_64913"]
-[ext_resource type="StandardMaterial3D" path="res://materials/m_c98a3c.tres" id="6_34425"]
-[ext_resource type="StandardMaterial3D" path="res://materials/m_ffffff.tres" id="7_74528"]
-[ext_resource type="StandardMaterial3D" path="res://materials/m_111111.tres" id="8_27680"]
-[ext_resource type="StandardMaterial3D" path="res://materials/m_a67c52.tres" id="9_43153"]
-[ext_resource type="StandardMaterial3D" path="res://materials/m_4a3320.tres" id="10_37961"]
-[ext_resource type="StandardMaterial3D" path="res://materials/m_6b4a2b.tres" id="11_63813"]
-[ext_resource type="StandardMaterial3D" path="res://materials/m_9aa0a6.tres" id="12_42090"]
+[ext_resource type="Material" uid="uid://hk6u33y3o4gt" path="res://materials/m_5c4329.tres" id="1_70901"]
+[ext_resource type="Material" uid="uid://hxbswjqbd4ww" path="res://materials/m_553e28.tres" id="2_77751"]
+[ext_resource type="Material" uid="uid://dgicvhbspo8od" path="res://materials/m_7a5a3a.tres" id="3_89727"]
+[ext_resource type="Material" path="res://materials/m_222222.tres" id="4_53271"]
+[ext_resource type="Material" uid="uid://cg7cbkhkymtnl" path="res://materials/m_e0a458.tres" id="5_64913"]
+[ext_resource type="Material" uid="uid://cqytisj1vpwow" path="res://materials/m_c98a3c.tres" id="6_34425"]
+[ext_resource type="Material" path="res://materials/m_ffffff.tres" id="7_74528"]
+[ext_resource type="Material" path="res://materials/m_111111.tres" id="8_27680"]
+[ext_resource type="Material" uid="uid://bakeujahtcbq8" path="res://materials/m_a67c52.tres" id="9_43153"]
+[ext_resource type="Material" uid="uid://cqcarmocpxi8j" path="res://materials/m_4a3320.tres" id="10_37961"]
+[ext_resource type="Material" uid="uid://cuucslxmb67vl" path="res://materials/m_6b4a2b.tres" id="11_63813"]
+[ext_resource type="Material" uid="uid://cg2gm8hmdg826" path="res://materials/m_9aa0a6.tres" id="12_42090"]
 [ext_resource type="PackedScene" path="res://scenes/common/shadow.tscn" id="13_72919"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_1"]
@@ -137,26 +137,29 @@ mesh = SubResource("BoxMesh_11")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.055, 2, -0.32)
 mesh = SubResource("BoxMesh_12")
 
-[node name="Box12" type="MeshInstance3D" parent="Inner"]
+[node name="Hat" type="MeshInstance3D" parent="Inner"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 2.3, 0)
 mesh = SubResource("BoxMesh_13")
 
-[node name="Box13" type="MeshInstance3D" parent="Inner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 2.526, 0)
+[node name="Box13" type="MeshInstance3D" parent="Inner/Hat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.226, 0)
 mesh = SubResource("BoxMesh_14")
+skeleton = NodePath("../..")
 
-[node name="Box14" type="MeshInstance3D" parent="Inner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 2.43, 0)
+[node name="Box14" type="MeshInstance3D" parent="Inner/Hat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13, 0)
 mesh = SubResource("BoxMesh_15")
+skeleton = NodePath("../..")
 
 [node name="Part15" type="Node3D" parent="Inner"]
 transform = Transform3D(0.87758, -0.47943, 0, 0.47943, 0.87758, 0, 0, 0, 1, -0.4, 1.5, -0.35)
 
 [node name="Box1" type="MeshInstance3D" parent="Inner/Part15"]
+transform = Transform3D(-0.0113105, 0.479297, 0.877581, -0.0207034, 0.877337, -0.479431, -0.999722, -0.0235915, -4.37114e-08, 0.00989166, -0.320365, -0.28723)
 mesh = SubResource("BoxMesh_16")
 
 [node name="Box2" type="MeshInstance3D" parent="Inner/Part15"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+transform = Transform3D(-0.0113105, 0.479297, 0.877581, -0.0207035, 0.877337, -0.479431, -0.999722, -0.0235915, -4.37114e-08, 0.39333, 0.381505, -0.306103)
 mesh = SubResource("BoxMesh_17")
 
 [node name="Shadow" parent="." instance=ExtResource("13_72919")]

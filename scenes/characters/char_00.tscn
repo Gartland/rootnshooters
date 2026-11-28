@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://43bukfgsaml1"]
+[gd_scene load_steps=29 format=3 uid="uid://dr7fcpqx1sb0d"]
 
 [ext_resource type="Material" path="res://materials/m_3ddc6e.tres" id="1_47104"]
 [ext_resource type="Material" path="res://materials/m_2a9a4d.tres" id="2_23316"]
@@ -138,17 +138,19 @@ mesh = SubResource("BoxMesh_11")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 2.12, -0.68)
 mesh = SubResource("BoxMesh_12")
 
-[node name="Box12" type="MeshInstance3D" parent="Inner"]
+[node name="Hat" type="MeshInstance3D" parent="Inner"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 2.46, 0)
 mesh = SubResource("BoxMesh_13")
 
-[node name="Box13" type="MeshInstance3D" parent="Inner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 2.8, 0)
+[node name="Box13" type="MeshInstance3D" parent="Inner/Hat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.34, 0)
 mesh = SubResource("BoxMesh_14")
+skeleton = NodePath("../..")
 
-[node name="Box14" type="MeshInstance3D" parent="Inner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 2.6, 0)
+[node name="Box14" type="MeshInstance3D" parent="Inner/Hat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14, 0)
 mesh = SubResource("BoxMesh_15")
+skeleton = NodePath("../..")
 
 [node name="Box15" type="MeshInstance3D" parent="Inner"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 1.3, 0)

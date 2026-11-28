@@ -1,20 +1,19 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://dxahrcimu08vy"]
 
-[ext_resource type="Theme" path="res://ui/theme.tres" id="1_theme"]
+[ext_resource type="Theme" uid="uid://mvs34cwbvalw" path="res://ui/theme.tres" id="1_theme"]
 
 [node name="Shop" type="MarginContainer"]
-theme = ExtResource("1_theme")
 visible = false
-mouse_filter = 2
-layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_theme")
 theme_override_constants/margin_left = 16
-theme_override_constants/margin_right = 16
 theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
 [node name="VBox" type="VBoxContainer" parent="."]
@@ -27,6 +26,7 @@ size_flags_vertical = 3
 mouse_filter = 2
 
 [node name="Panel" type="PanelContainer" parent="VBox"]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 
@@ -34,110 +34,109 @@ size_flags_horizontal = 4
 layout_mode = 2
 
 [node name="Coins" type="Label" parent="VBox/Panel/PV"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "COINS  0"
 horizontal_alignment = 1
-unique_name_in_owner = true
 
 [node name="PrizeLabel" type="Label" parent="VBox/Panel/PV"]
-layout_mode = 2
-text = ""
-horizontal_alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+horizontal_alignment = 1
 
 [node name="Row" type="HBoxContainer" parent="VBox/Panel/PV"]
 layout_mode = 2
-alignment = 1
 theme_override_constants/separation = 8
+alignment = 1
 
 [node name="SpinWrap" type="VBoxContainer" parent="VBox/Panel/PV/Row"]
+unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
-unique_name_in_owner = true
 
 [node name="Caption" type="Label" parent="VBox/Panel/PV/Row/SpinWrap"]
 layout_mode = 2
+theme_type_variation = &"SmallLabel"
 text = "BUY"
 horizontal_alignment = 1
-theme_type_variation = &"SmallLabel"
 
 [node name="SpinButton" type="Button" parent="VBox/Panel/PV/Row/SpinWrap"]
-layout_mode = 2
+unique_name_in_owner = true
 custom_minimum_size = Vector2(110, 52)
+layout_mode = 2
 focus_mode = 0
 text = "BUY 500"
-unique_name_in_owner = true
 
 [node name="FreeWrap" type="VBoxContainer" parent="VBox/Panel/PV/Row"]
+unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
-unique_name_in_owner = true
 
 [node name="Caption" type="Label" parent="VBox/Panel/PV/Row/FreeWrap"]
 layout_mode = 2
+theme_type_variation = &"SmallLabel"
 text = "FREE"
 horizontal_alignment = 1
-theme_type_variation = &"SmallLabel"
 
 [node name="FreeButton" type="Button" parent="VBox/Panel/PV/Row/FreeWrap"]
-layout_mode = 2
+unique_name_in_owner = true
 custom_minimum_size = Vector2(130, 52)
+layout_mode = 2
 focus_mode = 0
 text = "FREE"
-unique_name_in_owner = true
 
 [node name="OpenWrap" type="VBoxContainer" parent="VBox/Panel/PV/Row"]
+unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
-unique_name_in_owner = true
 
 [node name="Caption" type="Label" parent="VBox/Panel/PV/Row/OpenWrap"]
 layout_mode = 2
+theme_type_variation = &"SmallLabel"
 text = "OPEN"
 horizontal_alignment = 1
-theme_type_variation = &"SmallLabel"
 
 [node name="OpenButton" type="Button" parent="VBox/Panel/PV/Row/OpenWrap"]
-layout_mode = 2
+unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 52)
+layout_mode = 2
 focus_mode = 0
 text = "OPEN"
-unique_name_in_owner = true
 
 [node name="OkWrap" type="VBoxContainer" parent="VBox/Panel/PV/Row"]
+unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
-unique_name_in_owner = true
 
 [node name="Caption" type="Label" parent="VBox/Panel/PV/Row/OkWrap"]
 layout_mode = 2
+theme_type_variation = &"SmallLabel"
 text = "OK"
 horizontal_alignment = 1
-theme_type_variation = &"SmallLabel"
 
 [node name="OkButton" type="Button" parent="VBox/Panel/PV/Row/OkWrap"]
-layout_mode = 2
+unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 52)
+layout_mode = 2
 focus_mode = 0
 text = "OK"
-unique_name_in_owner = true
 
 [node name="BackWrap" type="VBoxContainer" parent="VBox/Panel/PV/Row"]
+unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
-unique_name_in_owner = true
 
 [node name="Caption" type="Label" parent="VBox/Panel/PV/Row/BackWrap"]
 layout_mode = 2
+theme_type_variation = &"SmallLabel"
 text = "BACK"
 horizontal_alignment = 1
-theme_type_variation = &"SmallLabel"
 
 [node name="BackButton" type="Button" parent="VBox/Panel/PV/Row/BackWrap"]
-layout_mode = 2
-custom_minimum_size = Vector2(100, 52)
-focus_mode = 0
-text = "BACK"
 unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 52)
+layout_mode = 2
+focus_mode = 0
 theme_type_variation = &"SecondaryButton"
+text = "BACK"

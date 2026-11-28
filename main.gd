@@ -8,7 +8,12 @@ const N = 15
 const CS = 140.0
 const COST = 500
 const FREE_MS = 6.0 * 3600.0 * 1000.0
-const MAXHP = 3
+const MAXHP = 2   # two lives: first hit pops the hat off, second hit is death
+# Hat pop animation
+const HAT_GRAVITY = 700.0
+const HAT_REST_Y = 2.0      # world height the hat comes to rest at on the ground
+const HAT_RETURN_TIME = .25 # seconds for the hat to fly back onto the head
+const HAT_BLINK_TIME = 1.3  # how long the landed hat flashes before vanishing (same as the player's hit flash)
 # Bounce height (world units) of the hop animation. Models are authored at unit size and the root is scaled,
 # so the code divides by the model's scale ("bs") to keep these values in world units.
 const WL = ["dbl", "tri", "wide", "quad", "mega", "mdbl", "cross", "homing", "badger", "tow", "sky", "cannon", "zap", "cruze", "wand", "shield"]
@@ -85,7 +90,6 @@ var swipe_x = null
 # ui
 var hud: Control
 var sticks: Control
-var hearts_l: Control
 var score_l: Label
 var coinbox_l: Control
 var coin_l: Label
@@ -323,7 +327,6 @@ func _bind_ui() -> void:
 	ov = ui.get_node("GameOver")
 	pm = ui.get_node("Shop")
 	flash = ui.get_node("%Flash")
-	hearts_l = hud.get_node("%Hearts")
 	score_l = hud.get_node("%Score")
 	coinbox_l = hud.get_node("%CoinBox")
 	coin_l = hud.get_node("%CoinLabel")
@@ -405,13 +408,9 @@ func _sticks_draw() -> void:
 
 func _update_hud() -> void:
 	var shown = (S == "play" or S == "over") and not P.is_empty()
-	hearts_l.visible = shown
 	score_l.visible = shown
 	coinbox_l.visible = shown
 	if shown:
-		var hs = hearts_l.get_children()
-		for i in hs.size():
-			hs[i].visible = i < P.hp
 		score_l.text = str(score)
 		coin_l.text = str(coins)
 	boss_box.visible = false
@@ -526,6 +525,7 @@ func mouse_world():
 
 # ---------------------------------------------------------------- game flow
 func clear_world() -> void:
+	hat_finish()
 	for a in [B, EB, E, PK, PT, CR, BX, WG]:
 		for o in a:
 			o.m.queue_free()
@@ -592,6 +592,7 @@ func _on_ad_finished(completed: bool) -> void:
 func _grant_one_up() -> void:
 	P.rev = true
 	P.hp = MAXHP
+	hat_return()
 	P.inv = 2.5
 	if P.w.has("shield"):
 		P.sh = 1
@@ -623,6 +624,102 @@ func boom(x, y, c, n, sp) -> void:
 		var s = 4 + randf() * 7
 		PT.append({"x": x, "y": y, "h": 16.0, "vh": (randf() - .3) * 160, "vx": cos(a) * v, "vy": sin(a) * v, "l": .6, "L": .6, "s": s, "m": put(Chars.bx(s, s, s, c), x, 16, y)})
 
+# ---------------------------------------------------------------- hat (first hit pops it off)
+var hat_node: Node3D = null    # the detached hat while it is off the head
+var hat_home: Node3D = null    # node it was attached to
+var hat_local = Transform3D.IDENTITY
+var hat_from = Transform3D.IDENTITY
+var hat_vel = Vector3.ZERO
+var hat_spin = Vector3.ZERO
+var hat_state = ""             # "", "fly", "rest", "return"
+var hat_t = 0.0
+
+# Finds the node named "Hat" anywhere in the player's character hierarchy and knocks it off.
+# Characters without a "Hat" node simply lose a life without the visual.
+func pop_hat() -> void:
+	if hat_node != null:
+		return
+	var h = CHM[chi].find_child("Hat", true, false)
+	if h == null or not (h is Node3D):
+		boom(P.x, P.y, "#ffd23f", 10, 200)
+		return
+	hat_home = h.get_parent()
+	hat_local = h.transform
+	var gt: Transform3D = h.global_transform
+	hat_home.remove_child(h)
+	add_child(h)
+	h.global_transform = gt
+	hat_node = h
+	hat_vel = Vector3(randf_range(-70, 70), randf_range(190, 260), randf_range(-70, 70))
+	hat_spin = Vector3(randf_range(-9, 9), randf_range(-12, 12), randf_range(-9, 9))
+	hat_state = "fly"
+	boom(h.global_position.x, h.global_position.z, "#ffffff", 8, 160)
+	sfx.tone(520, .18, "triangle", .12, 160)
+
+# Health pickup / 1-UP: the hat flies back onto the head (does nothing if the hat is still on).
+func hat_return() -> void:
+	if hat_node == null or hat_state == "return":
+		return
+	hat_node.visible = true
+	if hat_state == "gone":
+		hat_state = "return"
+		hat_finish()   # already vanished: just pop back onto the head
+		sfx.tone(440, .2, "triangle", .1, 880)
+		return
+	hat_state = "return"
+	hat_t = 0.0
+	hat_from = hat_node.global_transform
+	sfx.tone(440, .2, "triangle", .1, 880)
+
+# Instantly puts the hat back where it came from.
+func hat_finish() -> void:
+	if hat_node == null:
+		return
+	if hat_node.get_parent() != null:
+		hat_node.get_parent().remove_child(hat_node)
+	if is_instance_valid(hat_home):
+		hat_home.add_child(hat_node)
+		hat_node.transform = hat_local
+		hat_node.visible = true
+		if hat_state == "return":
+			boom(hat_node.global_position.x, hat_node.global_position.z, "#ffd23f", 8, 140)
+	else:
+		hat_node.queue_free()
+	hat_node = null
+	hat_state = ""
+
+func hat_upd(dt: float) -> void:
+	if hat_node == null:
+		return
+	if hat_state == "fly":
+		hat_vel.y -= HAT_GRAVITY * dt
+		hat_node.global_position += hat_vel * dt
+		hat_node.global_rotate(Vector3.RIGHT, hat_spin.x * dt)
+		hat_node.global_rotate(Vector3.UP, hat_spin.y * dt)
+		hat_node.global_rotate(Vector3.BACK, hat_spin.z * dt)
+		if hat_node.global_position.y <= HAT_REST_Y and hat_vel.y < 0.0:
+			if hat_vel.y < -120.0:
+				hat_node.global_position.y = HAT_REST_Y
+				hat_vel = Vector3(hat_vel.x * .5, -hat_vel.y * .35, hat_vel.z * .5)
+				hat_spin *= .5
+			else:
+				var gt: Transform3D = hat_node.global_transform
+				var sc = gt.basis.get_scale()
+				hat_node.global_transform = Transform3D(Basis.from_euler(Vector3(0, gt.basis.get_euler().y, 0)).scaled(sc), Vector3(gt.origin.x, HAT_REST_Y, gt.origin.z))
+				hat_state = "rest"
+				hat_t = 0.0
+	elif hat_state == "rest":
+		hat_t += dt
+		hat_node.visible = hat_t < HAT_BLINK_TIME and int(floor(hat_t * 20)) % 2 == 0
+		if hat_t >= HAT_BLINK_TIME:
+			hat_state = "gone"
+	elif hat_state == "return":
+		hat_t += dt / HAT_RETURN_TIME
+		var target: Transform3D = hat_home.global_transform * hat_local
+		hat_node.global_transform = hat_from.interpolate_with(target, clampf(hat_t, 0.0, 1.0))
+		if hat_t >= 1.0:
+			hat_finish()
+
 func hurt() -> void:
 	if P.inv > 0:
 		return
@@ -642,6 +739,8 @@ func hurt() -> void:
 	if P.hp <= 0:
 		boom(P.x, P.y, "#ff5a5f", 40, 360)
 		over()
+	else:
+		pop_hat()
 
 func ebul(x, y, a, sp) -> void:
 	sfx.es()
@@ -1356,6 +1455,7 @@ func upd(dt) -> void:
 				sfx.coin()
 			elif p.k == 1:
 				P.hp = mini(MAXHP, P.hp + 1)
+				hat_return()
 				sfx.heart()
 			elif p.k == 3:
 				grant_gun()
@@ -1679,6 +1779,7 @@ func open_cap() -> void:
 func _process(delta: float) -> void:
 	var dt = minf(.05, delta)
 	ck += dt
+	hat_upd(dt)
 	if pmOpen:
 		pz_upd(dt)
 	if S == "play":
